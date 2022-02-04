@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Axios from "axios";
+import Coin from "./components/Coin";
 
 function App() {
 	const [listOfCoins, setListOfCoins] = useState([]);
@@ -16,7 +17,12 @@ function App() {
 			<div className="cryptoHeader"></div>
 			<div className="cryptoDisplay">
 				{listOfCoins.map((coin) => (
-					<h1>{coin.name}</h1>
+					<Coin
+						name={coin.name}
+						icon={coin.icon}
+						price={coin.price}
+						symbol={coin.symbol}
+					/>
 				))}
 			</div>
 		</div>
