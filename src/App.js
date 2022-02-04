@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [listOfCoins, setListOfCoins] = useState([]);
+	useEffect(() => {
+		Axios.get("https://api.coinstats.app/public/v1/coins?skip=0&limit=10").then(
+			(response) => {
+				setListOfCoins(response.data.coins);
+			}
+		);
+	}, []);
+	return (
+		<div className="App">
+			<div className="cryptoHeader"></div>
+			<div className="cryptoDisplay">
+				{listOfCoins.map((coin) => (
+					<h1>{coin.name}</h1>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default App;
